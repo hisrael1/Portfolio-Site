@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+.playfair-display-font {
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.dancing-script-font {
+    font-family: "Dancing Script", serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.swiper-button-prev, .swiper-button-next {
+    color: white!important;
+}
+
+.swiper-pagination-bullet-active {
+    background: white !important;
+}
+
+/* .swiper-pagination {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+} */
