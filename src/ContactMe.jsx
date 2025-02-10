@@ -8,10 +8,10 @@ const ContactMe = forwardRef((props, ref) => {
   return (
     <div ref={ref} className="contact-me bg-slate-200 text-slate-600 w-full flex justify-center py-12">
       <div className="w-full max-w-4xl flex flex-col items-center">
-        <div className="text-4xl text-black font-bold">
+        <div className="text-4xl text-black font-bold px-4 text-center">
           Connect with Harrison
         </div>
-        <form className="flex flex-col w-96"
+        <form className="flex flex-col w-96 px-4"
           action="https://formspree.io/f/mjkgoyzj"
           method="POST"
         >
@@ -51,7 +51,7 @@ const ContactMe = forwardRef((props, ref) => {
               setMessage(e.target.value);
             }}
           ></textarea>
-          <button className="bg-black text-white px-4 py-2 rounded-md mt-8" type='submit'>
+          <button className="bg-black text-white px-4 py-2 rounded-md mt-8 hover:bg-white hover:text-black cursor-pointer" type='submit'>
             Submit
           </button>
         </form>
