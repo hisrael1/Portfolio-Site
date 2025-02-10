@@ -12,7 +12,7 @@ const AboutMe = forwardRef((props, ref) => {
                 <div className="flex flex-col md:flex-row justify-center w-full max-w-4xl items-center md:items-start">
                     <div className='w-80 shrink-0 flex flex-col items-center'>
                         <img src={headshot} className="w-80 h-80 object-cover rounded-md shadow-xl shrink-0"/>
-                        <button className="cursor-pointer border border-slate-300 px-6 py-4 text-xl mt-8 mb-8 rounded-lg shadow-md flex items-center" onClick={() => {
+                        <button className="cursor-pointer border border-slate-300 px-6 py-4 text-xl mt-8 mb-8 rounded-lg shadow-md flex items-center hover:text-white hover:bg-black" onClick={() => {
                             window.open('/Harrison S. Israel - Resume.pdf')
                         }}>
                             <i className="fa-solid fa-download mr-2 text-3xl"></i>
