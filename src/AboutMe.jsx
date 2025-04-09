@@ -21,7 +21,7 @@ const AboutMe = forwardRef((props, ref) => {
                     </div>
                     <div className="flex flex-col items-center">
                         <p className="text-indigo-900 px-8 text-lg">
-                            I&apos;m Harrison Israel — a New York-based developer with nearly two years 
+                            I&apos;m Harrison Israel, a New York-based developer with nearly two years 
                             of professional experience building responsive robust, scalable web applications. 
                             I create intuitive, responsive interfaces using React.js, JavaScript, Tailwind CSS, HTML5, and CSS3. 
                             I also have experience crafting backend solutions with Node, Express, and Ruby on Rails. 
