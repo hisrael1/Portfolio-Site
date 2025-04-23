@@ -1,17 +1,16 @@
 import landbnb from '../assets/landbnb3.png';
 import weGo from '../assets/weGo3.png';
 import harrysPlants from '../assets/harrysPlants.png'
-import ProjectCard from './ProjectCard';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
-import { forwardRef } from 'react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
 
+export interface Project {
+    name: string;
+    imageSrc: string;
+    description: string;
+    skills: string[];
+    liveLink: string;
+}
 
-const projects = [
+export const PROJECTS: Project[] = [
     {
         name: "Harry's Plants",
         imageSrc: harrysPlants,
@@ -34,30 +33,3 @@ const projects = [
         liveLink: 'https://landbnb-us.herokuapp.com/#/'
     },
 ]
-
-const SkillsAndProjects = forwardRef((props, ref) => {
-    return (
-        <div ref={ref} className="projects bg-slate-500 text-slate-50 w-full flex justify-center py-12 px-8">
-            <div className="w-full max-w-5xl">
-                <div className="text-4xl text-white">
-                    <i className="fa-solid fa-code mr-4"></i>
-                    Projects
-                </div>
-                <Swiper className="swiper"
-                    modules={[Navigation, Pagination]}
-                    navigation
-                    pagination={{ clickable: true }}
-                    loop={true}
-                >
-                    {projects.map((project, idx) => (
-                        <SwiperSlide key={project.name}>
-                            <ProjectCard project={project} idx={idx}/>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </div>
-        </div>
-    )
-})
-
-export default SkillsAndProjects;

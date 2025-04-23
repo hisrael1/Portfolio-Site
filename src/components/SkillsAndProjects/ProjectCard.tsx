@@ -1,4 +1,12 @@
-const ProjectCard = (props) => {
+interface ProjectCardProps {
+    project: {
+        liveLink: string;
+        imageSrc: string;
+        description: string;
+    }
+}
+
+const ProjectCard = (props: ProjectCardProps) => {
     const { project } = props;
 
     return (

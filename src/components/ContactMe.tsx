@@ -1,6 +1,6 @@
-import { useState, forwardRef } from "react";
+import { useState, forwardRef, ForwardedRef } from "react";
 
-const ContactMe = forwardRef((props, ref) => {
+const ContactMe = forwardRef((props, ref: ForwardedRef<HTMLDivElement>) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -44,7 +44,7 @@ const ContactMe = forwardRef((props, ref) => {
             name="message"
             aria-label="message"
             value={message}
-            rows="5"
+            rows={5}
             placeholder="message"
             className="bg-white rounded-lg px-4 py-2 text-xl my-2"
             onChange={(e) => {

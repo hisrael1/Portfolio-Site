@@ -1,9 +1,9 @@
-import background from './assets/background.jpg'
-import headshot from './assets/headshot.png'
-import { forwardRef } from 'react'
-import githubLogo from "./assets/github-mark.png";
+import background from '../assets/background.jpg';
+import headshot from '../assets/headshot.png'
+import { forwardRef, ForwardedRef } from 'react'
+import githubLogo from "../assets/github-mark.png";
 
-const Home = forwardRef((props, ref) => {
+const Home = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
     return (
         <div ref={ref} className="relative flex items-center min-h-screen w-full">
             <img src={background} className="absolute top-0 left-0 h-screen object-cover w-full"/>
