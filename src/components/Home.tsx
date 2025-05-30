@@ -41,7 +41,10 @@ const Home = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
             <div className="relative w-full flex flex-col items-center text-white z-20 p-8 pt-32">
                 <img 
                     src={headshot} 
-                    className="w-64 h-64 object-cover rounded-full shadow-2xl border-4 border-white/10 mb-8" 
+                    className="w-64 h-64 object-cover rounded-full shadow-2xl border-4 border-white/10 mb-8"
+                    style={{
+                        filter: 'grayscale(100%) contrast(1.2) brightness(1.1)'
+                    }}
                 />
                 
                 <div className='text-center max-w-4xl'>

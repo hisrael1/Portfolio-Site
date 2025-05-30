@@ -13,8 +13,7 @@ const NavBar = (props: NavBarProps) => {
   const {
     refs: { homeRef, aboutRef, projectsRef, contactRef },
   } = props;
-  const [mobileMenuModalOpen, setMobileMenuModalOpen] =
-    useState<boolean>(false);
+  const [mobileMenuModalOpen, setMobileMenuModalOpen] = useState<boolean>(false);
   const backgroundDiv = useRef<HTMLDivElement>(null);
   const menuModal = useRef<HTMLDivElement>(null);
 
@@ -48,7 +47,7 @@ const NavBar = (props: NavBarProps) => {
   ];
 
   return (
-    <div className="bg-black border-b border-gray-800 w-full px-6 py-6 text-white flex justify-center fixed top-0 z-50 backdrop-blur-md bg-black/90">
+    <div className="bg-black/90 border-b border-gray-800 text-white backdrop-blur-md w-full px-6 py-6 flex justify-center fixed top-0 z-50 transition-all duration-300">
       <div className="flex justify-between items-center w-full max-w-7xl">
         <div className="font-bold text-6xl tracking-tight bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">HSI</div>
         <div className="md:hidden">
