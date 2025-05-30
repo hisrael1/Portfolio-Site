@@ -6,7 +6,7 @@ const AboutMe = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
         <div ref={ref} className="about-me bg-slate-50 w-full flex flex-col items-center py-12 px-6">
             <div className="text-4xl text-indigo-900 font-bold pb-8">
                 <i className="fa-solid fa-user mr-4 text-4xl"></i>
-                About Me
+                About Mer
             </div>
             <div className="flex flex-col items-center">
                 <div className="flex flex-col md:flex-row justify-center w-full max-w-4xl items-center md:items-start">
