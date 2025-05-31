@@ -27,3 +27,13 @@
     padding-top: 2rem;
     padding-bottom: 3rem;
 } */
+
+/* Auto-scrolling skills animation */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}

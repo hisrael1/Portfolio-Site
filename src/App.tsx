@@ -13,6 +13,7 @@ const App = () => {
   const contactRef = useRef<HTMLDivElement>(null);
   
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [currentSection, setCurrentSection] = useState('home');
 
   useEffect(() => {
     const updateMousePosition = (ev: MouseEvent) => {
@@ -26,6 +27,46 @@ const App = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const observerOptions = {
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('data-section');
+          if (sectionId) {
+            setCurrentSection(sectionId);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all sections
+    if (homeRef.current) {
+      homeRef.current.setAttribute('data-section', 'home');
+      observer.observe(homeRef.current);
+    }
+    if (aboutRef.current) {
+      aboutRef.current.setAttribute('data-section', 'about');
+      observer.observe(aboutRef.current);
+    }
+    if (projectsRef.current) {
+      projectsRef.current.setAttribute('data-section', 'projects');
+      observer.observe(projectsRef.current);
+    }
+    if (contactRef.current) {
+      contactRef.current.setAttribute('data-section', 'contact');
+      observer.observe(contactRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="bg-black relative min-h-screen">
       {/* Mouse cursor effect */}
@@ -36,7 +77,7 @@ const App = () => {
         }}
       />
       
-      <NavBar refs={{homeRef, aboutRef, projectsRef, contactRef}}/>
+      <NavBar refs={{homeRef, aboutRef, projectsRef, contactRef}} currentSection={currentSection}/>
       <div className="relative w-full flex flex-col items-center">
         <Home ref={homeRef} />
         <AboutMe ref={aboutRef} />
