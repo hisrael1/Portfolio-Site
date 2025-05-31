@@ -7,16 +7,20 @@ interface NavBarProps {
     projectsRef: RefObject<HTMLDivElement>;
     contactRef: RefObject<HTMLDivElement>;
   };
+  currentSection: string;
 }
 
 const NavBar = (props: NavBarProps) => {
   const {
     refs: { homeRef, aboutRef, projectsRef, contactRef },
+    currentSection
   } = props;
-  const [mobileMenuModalOpen, setMobileMenuModalOpen] =
-    useState<boolean>(false);
+  const [mobileMenuModalOpen, setMobileMenuModalOpen] = useState<boolean>(false);
   const backgroundDiv = useRef<HTMLDivElement>(null);
   const menuModal = useRef<HTMLDivElement>(null);
+
+  // Determine if current section has white background
+  const isOnWhiteSection = currentSection === 'about' || currentSection === 'contact';
 
   interface NavItem {
     label: string;
@@ -48,20 +52,28 @@ const NavBar = (props: NavBarProps) => {
   ];
 
   return (
-    <div className="bg-slate-600 w-full px-4 py-4 text-slate-100 flex justify-center">
-      <div className="flex justify-between items-center w-full max-w-6xl">
-        <div className="dancing-script-font text-5xl">HSI</div>
+    <div className={`${isOnWhiteSection 
+      ? 'bg-white/95 border-b border-gray-200 text-black' 
+      : 'bg-black/90 border-b border-gray-800 text-white'
+    } backdrop-blur-md w-full px-6 py-6 flex justify-center fixed top-0 z-50 transition-all duration-500`}>
+      <div className="flex justify-between items-center w-full max-w-7xl">
+        <div className={`font-bold text-6xl tracking-tight bg-gradient-to-r ${isOnWhiteSection 
+          ? 'from-black to-gray-600' 
+          : 'from-white to-gray-300'
+        } bg-clip-text text-transparent`}>HSI</div>
         <div className="md:hidden">
           <button onClick={(): void => setMobileMenuModalOpen(true)}>
-            <i className="fa-solid fa-bars text-4xl px-4 cursor-pointer text-slate-300"></i>
+            <i className={`fa-solid fa-bars text-3xl px-4 cursor-pointer ${isOnWhiteSection 
+              ? 'text-gray-700 hover:text-black' 
+              : 'text-gray-300 hover:text-white'
+            } transition-colors`}></i>
           </button>
           {mobileMenuModalOpen && (
             <div
-              className="backdrop-blur-sm fixed top-0 left-0 w-full h-full z-2"
+              className="backdrop-blur-sm fixed top-0 left-0 w-full h-full z-50 bg-black/50"
               ref={backgroundDiv}
               onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
                 const clickedElement = e.target as HTMLElement;
-                // close modal only if click is inside background div but not modal menu
                 if (
                   backgroundDiv.current?.contains(clickedElement) &&
                   !menuModal.current?.contains(clickedElement)
@@ -71,37 +83,51 @@ const NavBar = (props: NavBarProps) => {
               }}
             >
               <div
-                className="absolute top-0 right-0 bg-slate-600 text-xl flex flex-col items-start w-56 z-4 py-8 px-4"
+                className={`absolute top-0 right-0 ${isOnWhiteSection 
+                  ? 'bg-white border-l border-gray-200' 
+                  : 'bg-black border-l border-gray-800'
+                } text-xl flex flex-col items-start w-72 z-50 py-8 px-6`}
                 ref={menuModal}
               >
                 <i
-                  className="fa-solid fa-circle-xmark absolute top-4 right-4 bg-slate-700 text-slate-400 rounded-full text-3xl"
+                  className={`fa-solid fa-circle-xmark absolute top-6 right-6 ${isOnWhiteSection 
+                    ? 'text-gray-600 hover:text-black' 
+                    : 'text-gray-400 hover:text-white'
+                  } text-2xl cursor-pointer transition-colors`}
                   onClick={() => setMobileMenuModalOpen(false)}
                 ></i>
-                {navItems.map((navItem) => (
-                  <button
-                    key={navItem.label}
-                    className="mx-4 cursor-pointer my-1"
-                    onClick={() => {
-                      setMobileMenuModalOpen(false);
-                      navItem.ref.current?.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                    }}
-                  >
-                    <i className={`${navItem.iconClass} fa-solid mr-2 w-8`}></i>
-                    {navItem.label}
-                  </button>
-                ))}
+                <div className="mt-8 space-y-4 w-full">
+                  {navItems.map((navItem) => (
+                    <button
+                      key={navItem.label}
+                      className={`w-full text-left px-4 py-3 ${isOnWhiteSection 
+                        ? 'text-gray-700 hover:text-black hover:bg-gray-100' 
+                        : 'text-gray-300 hover:text-white hover:bg-gray-900'
+                      } rounded-lg transition-all duration-200 flex items-center`}
+                      onClick={() => {
+                        setMobileMenuModalOpen(false);
+                        navItem.ref.current?.scrollIntoView({
+                          behavior: "smooth",
+                        });
+                      }}
+                    >
+                      <i className={`${navItem.iconClass} fa-solid mr-3 w-5`}></i>
+                      {navItem.label}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           )}
         </div>
-        <div className="text-xl hidden md:flex">
+        <div className="text-lg hidden md:flex space-x-8">
           {navItems.map((navItem) => (
             <button
               key={navItem.label}
-              className="mx-4 cursor-pointer"
+              className={`${isOnWhiteSection 
+                ? 'text-gray-700 hover:text-black' 
+                : 'text-gray-300 hover:text-white'
+              } transition-colors duration-200 flex items-center font-medium`}
               onClick={() =>
                 navItem.ref.current?.scrollIntoView({ behavior: "smooth" })
               }

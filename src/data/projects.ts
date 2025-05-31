@@ -1,6 +1,7 @@
 import landbnb from '../assets/landbnb3.png';
 import weGo from '../assets/weGo3.png';
-import harrysPlants from '../assets/harrysPlants.png'
+import harrysPlants from '../assets/harrysPlants.png';
+import personaFi from '../assets/PersonFi_img.png';
 
 export interface Project {
     name: string;
@@ -11,6 +12,13 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
+    {
+        name: "PersonaFi",
+        imageSrc: personaFi,
+        description: "Ever wanted to chat with your favorite Twitter personality? PersonaFi makes it happen. I built this AI chat platform that studies real tweets to recreate how people actually write and think. Pick any Twitter user and have a conversation that feels surprisingly authentic. The magic happens through semantic search and vector databases that ground every response in real data.",
+        skills: ["React", "TypeScript", "Node.js", "Express.js", "ChromaDB", "OpenRouter AI", "Docker", "Tailwind CSS"],
+        liveLink: 'in-progress'
+    },
     {
         name: "Harry's Plants",
         imageSrc: harrysPlants,
