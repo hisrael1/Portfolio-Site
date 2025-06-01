@@ -1,5 +1,5 @@
 import background from '../assets/background.jpg';
-import headshot from '../assets/headshot.png'
+import headshot from '../assets/headshot copy.png'
 import { forwardRef, ForwardedRef, useEffect, useState } from 'react'
 import githubLogo from "../assets/github-mark.png";
 import { motion } from 'framer-motion';
