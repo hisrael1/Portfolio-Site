@@ -49,27 +49,23 @@ const Home = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
                 />
                 
                 <div className='text-center max-w-4xl'>
-                    {/* <motion.h1  */}
-                    <h1
+                    <motion.h1 
                         className='text-7xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent leading-tight'
-                        // initial={{ opacity: 0, y: 30 }}
-                        // animate={{ opacity: 1, y: 0 }}
-                        // transition={{ duration: 0.8, ease: "easeOut" }}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
                     >
                         Harrison Israel
-                    </h1>
-                    {/* </motion.h1> */}
+                    </motion.h1>
                     
-                    {/* <motion.h2  */}
-                    <h2 
+                    <motion.h2 
                         className='text-2xl md:text-3xl text-gray-300 font-light mb-12 leading-relaxed'
-                        // initial={{ opacity: 0, y: 30 }}
-                        // animate={{ opacity: 1, y: 0 }}
-                        // transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
                     >
                         Front-End Focused Full-Stack Developer
-                    {/* </motion.h2> */}
-                    </h2>
+                    </motion.h2>
                 </div>
                 
                 <div className="flex justify-center space-x-8 items-center">
