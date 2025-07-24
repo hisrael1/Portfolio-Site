@@ -68,7 +68,7 @@ const ProjectCard = (props: ProjectCardProps) => {
                 {isInProgress ? (
                     <div className="w-full bg-gray-400 text-white py-3 px-6 rounded-xl font-semibold text-center flex items-center justify-center cursor-not-allowed mt-auto">
                         <i className="fa-solid fa-clock mr-3"></i>
-                        In Progress
+                        Local Demo
                     </div>
                 ) : (
                     <a 

@@ -164,7 +164,7 @@ const Home = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
                     src={headshot} 
                     className="w-64 h-64 object-cover rounded-full shadow-2xl border-4 border-white/10 mb-8"
                     style={{
-                        filter: 'grayscale(100%) contrast(1.2) brightness(1.1)'
+                        filter: 'contrast(1.1) brightness(1.05) saturate(1.1)'
                     }}
                 />
                 
@@ -184,7 +184,8 @@ const Home = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
                     >
-                        Front-End Focused Full-Stack Developer
+                        {/* Front-End Focused  */}
+                        Full-Stack Developer
                     </motion.h2>
                 </div>
                 
