@@ -184,7 +184,8 @@ const Home = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
                     >
-                        Front-End Focused Full-Stack Developer
+                        {/* Front-End Focused  */}
+                        Full-Stack Developer
                     </motion.h2>
                 </div>
                 
