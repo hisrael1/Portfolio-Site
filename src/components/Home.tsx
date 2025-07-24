@@ -164,7 +164,7 @@ const Home = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
                     src={headshot} 
                     className="w-64 h-64 object-cover rounded-full shadow-2xl border-4 border-white/10 mb-8"
                     style={{
-                        filter: 'grayscale(100%) contrast(1.2) brightness(1.1)'
+                        filter: 'contrast(1.1) brightness(1.05) saturate(1.1)'
                     }}
                 />
                 

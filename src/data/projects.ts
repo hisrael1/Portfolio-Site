@@ -16,7 +16,7 @@ export const PROJECTS: Project[] = [
     {
         name: "LeadFlow",
         imageSrc: LeadFlow,
-        description: "LeadFlow is an AI-powered lead qualification chatbot that transforms website visitors into booked sales appointments. Built as a demo real estate site, the intelligent agent uses OpenRouter's API with sophisticated function calling to dynamically fetch calendar availability and execute real-time bookings. Features advanced conversation history tracking, automated lead scoring, timezone-aware scheduling, and seamless API orchestration between AI services and Cal.com. The React/TypeScript architecture showcases custom hooks, context management, and production-grade error handling—all deployable as an embeddable widget across any industry.",
+        description: "LeadFlow is an AI-powered lead qualification chatbot that transforms website visitors into booked sales appointments. Built as a demo real estate site, the intelligent agent uses OpenRouter's API with sophisticated function calling to dynamically fetch calendar availability and execute real-time bookings. Features advanced conversation history tracking, automated lead scoring, timezone-aware scheduling, and seamless API orchestration between AI services and Cal.com. The React/TypeScript architecture showcases custom hooks, context management, and production-grade error handling deployable as an embeddable widget across any industry.",
         skills: ["React", "TypeScript", "OpenRouter AI", "Cal.com API", "Function Calling APIs", "Advanced State Management", "Tailwind CSS"],
         liveLink: 'https://lead-flow-three.vercel.app/'
     },
