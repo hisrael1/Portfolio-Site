@@ -1,36 +1,156 @@
 import background from '../assets/background.jpg';
 import headshot from '../assets/headshot copy.png'
-import { forwardRef, ForwardedRef, useEffect, useState } from 'react'
+import { forwardRef, ForwardedRef, useEffect, useState, useRef } from 'react'
 import githubLogo from "../assets/github-mark.png";
 import { motion } from 'framer-motion';
 
+interface LiquidDroplet {
+    id: number;
+    x: number;
+    y: number;
+    size: number;
+    driftX: number;
+    driftY: number;
+    opacity: number;
+    startTime: number;
+}
+
 const Home = forwardRef((_, ref: ForwardedRef<HTMLDivElement>) => {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [droplets, setDroplets] = useState<LiquidDroplet[]>([]);
+    const dropletIdRef = useRef(0);
+    const lastDropletTimeRef = useRef(0);
+    const animationFrameRef = useRef<number>();
 
     useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
+        const homeElement = ref as React.MutableRefObject<HTMLDivElement>;
+        if (!homeElement.current) return;
+
+        const createDroplet = (mouseX: number, mouseY: number): LiquidDroplet => {
+            // Random offset from mouse position for organic feel
+            const offsetRange = 25;
+            const randomOffsetX = (Math.random() - 0.5) * offsetRange;
+            const randomOffsetY = (Math.random() - 0.5) * offsetRange;
+            
+            // Random size variations
+            const baseSize = 4;
+            const sizeVariation = Math.random() * 6 + 2; // 2-8px range
+            
+            // Subtle random drift for natural movement
+            const driftX = (Math.random() - 0.5) * 0.5; // Very subtle horizontal drift
+            const driftY = Math.random() * 0.3; // Slight downward drift like gravity
+            
+            return {
+                id: dropletIdRef.current++,
+                x: mouseX + randomOffsetX,
+                y: mouseY + randomOffsetY,
+                size: sizeVariation,
+                driftX,
+                driftY,
+                opacity: 0.8,
+                startTime: Date.now()
+            };
         };
 
-        document.addEventListener('mousemove', handleMouseMove);
-        return () => document.removeEventListener('mousemove', handleMouseMove);
+        const handleMouseMove = (e: MouseEvent) => {
+            const now = Date.now();
+            
+            // Throttle droplet creation - create 1-3 droplets every 50ms for natural feel
+            if (now - lastDropletTimeRef.current < 50) return;
+            lastDropletTimeRef.current = now;
+            
+            // Create 1-2 droplets per mouse move for richness
+            const dropletCount = Math.random() > 0.6 ? 2 : 1;
+            const newDroplets = Array.from({ length: dropletCount }, () => 
+                createDroplet(e.clientX, e.clientY)
+            );
+            
+            setDroplets(prev => [...prev, ...newDroplets]);
+        };
+
+        const handleMouseLeave = () => {
+            // Gradually stop creating new droplets and let existing ones fade
+            setDroplets(prev => prev.map(droplet => ({
+                ...droplet,
+                startTime: droplet.startTime - 500 // Accelerate fade-out
+            })));
+        };
+
+        // Animation loop for droplet movement and fading
+        const animate = () => {
+            const now = Date.now();
+            
+            setDroplets(prev => 
+                prev.map(droplet => {
+                    const age = now - droplet.startTime;
+                    const maxAge = 1500; // 1.5 seconds lifespan
+                    
+                    // Calculate new position with drift
+                    const timeInSeconds = age / 1000;
+                    const newX = droplet.x + (droplet.driftX * timeInSeconds * 20);
+                    const newY = droplet.y + (droplet.driftY * timeInSeconds * 30);
+                    
+                    // Calculate opacity fade (fast fade in last 500ms)
+                    let newOpacity;
+                    if (age < maxAge - 500) {
+                        newOpacity = 0.8; // Full opacity for most of life
+                    } else {
+                        const fadeProgress = (age - (maxAge - 500)) / 500;
+                        newOpacity = 0.8 * (1 - fadeProgress);
+                    }
+                    
+                    return {
+                        ...droplet,
+                        x: newX,
+                        y: newY,
+                        opacity: Math.max(0, newOpacity)
+                    };
+                }).filter(droplet => {
+                    const age = now - droplet.startTime;
+                    return age < 1500 && droplet.opacity > 0.01;
+                })
+            );
+            
+            animationFrameRef.current = requestAnimationFrame(animate);
+        };
+
+        // Start animation loop
+        animationFrameRef.current = requestAnimationFrame(animate);
+
+        // Event listeners - attached to Home component only
+        homeElement.current.addEventListener('mousemove', handleMouseMove);
+        homeElement.current.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            if (homeElement.current) {
+                homeElement.current.removeEventListener('mousemove', handleMouseMove);
+                homeElement.current.removeEventListener('mouseleave', handleMouseLeave);
+            }
+            if (animationFrameRef.current) {
+                cancelAnimationFrame(animationFrameRef.current);
+            }
+        };
     }, []);
 
     return (
         <div ref={ref} className="relative flex items-center min-h-screen w-full bg-black overflow-hidden">
-            {/* Simple mouse follower effect */}
-            <div
-                className="fixed pointer-events-none z-10 transition-all duration-300 ease-out"
-                style={{
-                    left: mousePosition.x - 200,
-                    top: mousePosition.y - 200,
-                    width: 400,
-                    height: 400,
-                    background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, rgba(147, 51, 234, 0.1) 50%, transparent 70%)',
-                    borderRadius: '50%',
-                    filter: 'blur(20px)',
-                }}
-            />
+            {/* Liquid droplet trail effect */}
+            {droplets.map(droplet => (
+                <div
+                    key={droplet.id}
+                    className="fixed pointer-events-none z-10 rounded-full"
+                    style={{
+                        left: droplet.x - droplet.size / 2,
+                        top: droplet.y - droplet.size / 2,
+                        width: droplet.size,
+                        height: droplet.size,
+                        opacity: droplet.opacity,
+                        background: `radial-gradient(circle, rgba(34, 211, 238, ${droplet.opacity * 0.9}) 0%, rgba(59, 130, 246, ${droplet.opacity * 0.7}) 50%, rgba(147, 51, 234, ${droplet.opacity * 0.4}) 100%)`,
+                        boxShadow: `0 0 ${droplet.size * 0.8}px rgba(34, 211, 238, ${droplet.opacity * 0.8}), 0 0 ${droplet.size * 1.5}px rgba(59, 130, 246, ${droplet.opacity * 0.4})`,
+                        filter: 'blur(0.2px)',
+                        transition: 'opacity 0.1s ease-out'
+                    }}
+                />
+            ))}
 
             {/* Dark overlay on background image */}
             <img src={background} className="absolute top-0 left-0 h-screen object-cover w-full opacity-20"/>
